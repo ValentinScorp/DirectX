@@ -56,6 +56,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	guiSystem->CreateButton(D3DXVECTOR2(800, 100), "grass.png", 1);
 	guiSystem->CreateButton(D3DXVECTOR2(800, 150), "sand.png", 2);
 
+	GuiText *guiText = new GuiText("application version 0.0");
+    guiText->Init(renderer->GetDevice());
+    guiText->SetPosition(D3DXVECTOR2(10, 10));
+    guiSystem->AttachComponent(guiText);
+
 	userInput->RegisterListener(scene->GetActiveCamera());
 	userInput->RegisterListener(scene);
 	userInput->RegisterListener(renderer);

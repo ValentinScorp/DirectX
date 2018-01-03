@@ -75,6 +75,8 @@
 		<Unit filename="GuiComponent.h" />
 		<Unit filename="GuiSystem.cpp" />
 		<Unit filename="GuiSystem.h" />
+		<Unit filename="GuiText.cpp" />
+		<Unit filename="GuiText.h" />
 		<Unit filename="Mesh.cpp" />
 		<Unit filename="Mesh.h" />
 		<Unit filename="MessageManager.h" />

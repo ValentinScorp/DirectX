@@ -13,12 +13,14 @@ class GuiComponent
         GuiComponent();
         virtual ~GuiComponent();
 
-        virtual void Init() = 0;
         virtual void Draw() = 0;
         virtual void Destroy() = 0;
-        virtual void OnMessage(Message mes) = 0;
+        virtual void OnMessage(Message mes)
+        {
+        }
 
         int GetId();
+        void SetPosition(D3DXVECTOR2 newPos);
 
         bool IsInBorders(D3DXVECTOR2 point);
 };

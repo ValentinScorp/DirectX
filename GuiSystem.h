@@ -12,6 +12,8 @@ class GuiSystem : public MessageReceiver, public MessageSender
         virtual ~GuiSystem();
 
         void CreateButton(D3DXVECTOR2 position, std::string bitmapFileName, int id);
+
+        void AttachComponent(GuiComponent *gc);
         void Draw();
 
         Message::State OnMessage(Message mes);

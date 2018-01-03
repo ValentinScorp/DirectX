@@ -23,6 +23,11 @@ bool GuiComponent::IsInBorders(D3DXVECTOR2 point)
     return 1;
 }
 
+void GuiComponent::SetPosition(D3DXVECTOR2 newPos)
+{
+    position = newPos;
+}
+
 int GuiComponent::GetId()
 {
     return id;

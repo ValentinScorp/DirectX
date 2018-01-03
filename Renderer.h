@@ -63,13 +63,11 @@ public:
 	virtual ~Renderer();
 
 private:
-	ID3DXFont*			font = nullptr;
 	GuiBitmap*			guiBitmap = nullptr;
 	IDirect3D9*			pDirect3D = nullptr;
 	IDirect3DDevice9*	pDevice = nullptr;
 	IDirect3DVertexDeclaration9 *vertexDeclaration = nullptr;
 
-	//UserInput*			userInput = nullptr;
 	TerrainRenderer*	terrainRenderer = nullptr;
 
 	std::vector<IDirect3DTexture9*> textures;

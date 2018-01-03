@@ -34,20 +34,6 @@ void Renderer::Initialize(HWND hWnd)
 
 	pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &pDevice);
 
-	// creating font
-	D3DXFONT_DESC fontDesc;
-	fontDesc.Height = 24;
-	fontDesc.Width = 0;
-	fontDesc.Weight = 0;
-	fontDesc.MipLevels = 1;
-	fontDesc.Italic = false;
-	fontDesc.CharSet = DEFAULT_CHARSET;
-	fontDesc.OutputPrecision = OUT_DEFAULT_PRECIS;
-	fontDesc.Quality = DEFAULT_QUALITY;
-	fontDesc.PitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
-	strcpy(fontDesc.FaceName, "Times New Roman");
-	D3DXCreateFontIndirect(pDevice, &fontDesc, &font);
-
 	D3DVERTEXELEMENT9 decl[] = {
 			{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
 			{0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL, 0},
@@ -182,18 +168,6 @@ void Renderer::Draw()
 {
 	D3DXVECTOR3 endPos;
 
-	clock->Update();
-	float dtime = clock->GetDeltaTime();
-	if (dtime == 0) {
-		dtime = 0.1;
-	}
-	float fps = 1 / dtime;
-	std::stringstream ss (std::stringstream::in | std::stringstream::out);
-	ss << fps;
-	std::string text = ss.str();
-	RECT R = { 0, 0, 0, 0 };
-	font->DrawText(0, text.c_str(), -1, &R, DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-
 	D3DXMATRIX matView1;
 	D3DXVECTOR3 camPos(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 lookAt(0.0f, 0.0f, 1.0f);
@@ -280,11 +254,6 @@ IDirect3DDevice9* Renderer::GetDevice()
 
 void Renderer::Destroy()
 {
-	if (font != NULL) {
-		font->Release();
-		font = NULL;
-	}
-
 	if (v_buffer) {
 		v_buffer->Release();
 		v_buffer = NULL;
@@ -329,6 +298,8 @@ void Renderer::Destroy()
 
 Message::State Renderer::OnMessage(Message mess)
 {
+    Message::State messageState = Message::MS_NOT_HANDLED;
+
 	if (mess.type == "user_input" && mess.name == "mouse_move") {
 
 		RayVector camRay = camera->GetVectorRay(mess.x, mess.y);
@@ -337,6 +308,7 @@ Message::State Renderer::OnMessage(Message mess)
 		terrainBrush->SetX(intersection.x);
 		terrainBrush->SetY(intersection.y);
 	}
+	return messageState;
 }
 
 Renderer::~Renderer()

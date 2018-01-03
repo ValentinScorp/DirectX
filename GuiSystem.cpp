@@ -40,6 +40,10 @@ void GuiSystem::CreateButton(D3DXVECTOR2 position, std::string bitmapFileName, i
     GuiComponent *guibutton = new GuiButton(pDevice, position, bitmapFileName, id);
     components.push_back(guibutton);
 }
+void GuiSystem::AttachComponent(GuiComponent* gc)
+{
+    components.push_back(gc);
+}
 
 void GuiSystem::Draw()
 {

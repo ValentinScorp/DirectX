@@ -35,6 +35,7 @@
 #include "GuiComponent.h"
 #include "GuiButton.h"
 #include "GuiBitmap.h"
+#include "GuiText.h"
 #include "GuiSystem.h"
 
 #define SCREEN_WIDTH 1024

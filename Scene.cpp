@@ -18,8 +18,6 @@ void Scene::Initialize(Renderer *r)
 	r->GetTerrainRenderer()->SetTerrain(terrain);
 	renderer = r;
 
-	//terrainBrush = new TerrainBrush();
-	//r->AddTerrainBrush(terrainBrush);
 	SmaLoader smaLoader;
 
 	GameObject *man = smaLoader.load("Cube.002.sma");

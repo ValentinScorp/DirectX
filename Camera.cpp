@@ -16,6 +16,7 @@ Camera::~Camera()
 
 Message::State Camera::OnMessage(Message mes)
 {
+    Message::State messageState = Message::MS_NOT_HANDLED;
 	if (mes.type == "user_input")
 	{
 		if (mes.name == "right_mouse_button_down") {
@@ -43,6 +44,7 @@ Message::State Camera::OnMessage(Message mes)
 			}
 		}
 	}
+	return messageState;
 }
 
 RayVector Camera::GetVectorRay(int x, int y)

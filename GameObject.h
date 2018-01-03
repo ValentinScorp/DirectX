@@ -1,5 +1,3 @@
-#include "Precompiled.h"
-
 #ifndef SOURCE_GAMEOBJECT_H_
 #define SOURCE_GAMEOBJECT_H_
 
