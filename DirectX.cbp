@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="DirectX" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/DirectX" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Debug/" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-ggdb" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add library="d3dx9" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/DirectX" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release/" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="d3dx9" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++11" />
+			<Add option="-std=c11" />
+			<Add directory="C:/Applications/msys64/mingw64/x86_64-w64-mingw32/include" />
+		</Compiler>
+		<Linker>
+			<Add library="kernel32" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winspool" />
+			<Add library="comdlg32" />
+			<Add library="advapi32" />
+			<Add library="shell32" />
+			<Add library="ole32" />
+			<Add library="oleaut32" />
+			<Add library="uuid" />
+			<Add library="odbc32" />
+			<Add library="odbccp32" />
+			<Add library="d3d9" />
+			<Add directory="C:/Applications/msys64/mingw64/x86_64-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="AnimatedMesh.cpp" />
+		<Unit filename="AnimatedMesh.h" />
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.h" />
+		<Unit filename="Clock.cpp" />
+		<Unit filename="Clock.h" />
+		<Unit filename="DirectX.cpp" />
+		<Unit filename="GameObject.cpp" />
+		<Unit filename="GameObject.h" />
+		<Unit filename="GuiBitmap.cpp" />
+		<Unit filename="GuiBitmap.h" />
+		<Unit filename="GuiButton.cpp" />
+		<Unit filename="GuiButton.h" />
+		<Unit filename="GuiComponent.cpp" />
+		<Unit filename="GuiComponent.h" />
+		<Unit filename="GuiSystem.cpp" />
+		<Unit filename="GuiSystem.h" />
+		<Unit filename="Mesh.cpp" />
+		<Unit filename="Mesh.h" />
+		<Unit filename="MessageManager.h" />
+		<Unit filename="Precompiled.h" />
+		<Unit filename="Renderer.cpp" />
+		<Unit filename="Renderer.h" />
+		<Unit filename="RigidBody.cpp" />
+		<Unit filename="RigidBody.h" />
+		<Unit filename="Scene.cpp" />
+		<Unit filename="Scene.h" />
+		<Unit filename="Shader.cpp" />
+		<Unit filename="Shader.h" />
+		<Unit filename="SmaLoader.cpp" />
+		<Unit filename="SmaLoader.h" />
+		<Unit filename="Terrain.cpp" />
+		<Unit filename="Terrain.h" />
+		<Unit filename="TerrainBrush.cpp" />
+		<Unit filename="TerrainBrush.h" />
+		<Unit filename="TerrainPatch.cpp" />
+		<Unit filename="TerrainPatch.h" />
+		<Unit filename="TerrainRenderer.cpp" />
+		<Unit filename="TerrainRenderer.h" />
+		<Unit filename="TerrainTile.cpp" />
+		<Unit filename="TerrainTile.h" />
+		<Unit filename="UserInput.cpp" />
+		<Unit filename="UserInput.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="1" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
