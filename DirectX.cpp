@@ -28,7 +28,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	wcex.hIconSm = NULL;
 	RegisterClassExW(&wcex);
 
-	HWND hWnd = CreateWindowEx(WS_EX_TOPMOST, "My DirectX Project", "DirectX Project", WS_POPUP, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+	HWND hWnd = CreateWindowEx(0, "My DirectX Project", "DirectX Project", WS_POPUP, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
 	if (hWnd == NULL) {
 		return -1;
@@ -43,8 +43,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	renderer = new Renderer(&camera);
 
 	renderer->Initialize(hWnd);
-
-//	renderer->SetUserInput(userInput);
 
 	scene = new Scene();
 	scene->Initialize(renderer);
