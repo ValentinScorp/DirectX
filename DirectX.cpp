@@ -54,17 +54,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	guiSystem->CreateButton(D3DXVECTOR2(800, 100), "grass.png", 1);
 	guiSystem->CreateButton(D3DXVECTOR2(800, 150), "sand.png", 2);
 
-	GuiText *guiText = new GuiText("application version 0.0");
-    guiText->Init(renderer->GetDevice());
+    GuiButton *saveButton = new GuiButton(renderer->GetDevice(), D3DXVECTOR2(800, 200), "", 3);
+    saveButton->setWidth(200);
+    saveButton->setText("Сохранить карту");
+    guiSystem->AttachComponent(saveButton);
+
+    GuiButton *loadButton = new GuiButton(renderer->GetDevice(), D3DXVECTOR2(800, 250), "", 4);
+    loadButton->setWidth(200);
+    loadButton->setText("Загрузить карту");
+    guiSystem->AttachComponent(loadButton);
+
+
+    GuiButton *genButton = new GuiButton(renderer->GetDevice(), D3DXVECTOR2(800, 300), "", 5);
+    genButton->setWidth(230);
+    genButton->setText("Сгенерировать карту");
+    guiSystem->AttachComponent(genButton);
+
+	GuiComponent *guiText = new GuiText(renderer->GetDevice(), "application version 0.0");
     guiText->SetPosition(D3DXVECTOR2(10, 10));
     guiSystem->AttachComponent(guiText);
 
 	userInput->RegisterListener(scene->GetActiveCamera());
 	userInput->RegisterListener(scene);
 	userInput->RegisterListener(renderer);
-
 	userInput->RegisterGuiReceiver(guiSystem);
-
 	guiSystem->RegisterListener(scene);
 
 	renderer->InitializeLightAndMaterials();

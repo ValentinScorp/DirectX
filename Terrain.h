@@ -25,6 +25,9 @@ public:
 
 	void SetTilesSurface(D3DXVECTOR3 point);
 	void SetBrushType(int brushType);
+	void saveMap();
+	void loadMap();
+	void generateMap();
 
 	D3DXVECTOR3 GetTerraneIntersection(RayVector rv);
 };

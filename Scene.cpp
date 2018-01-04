@@ -70,6 +70,18 @@ Message::State Scene::OnMessage(Message mes)
 		terrain->SetBrushType(mes.delta);
 		messageState = Message::MS_HANDLED;
 	}
+	if (mes.type == "gui_message" && mes.name == "map_manipulation") {
+        if (mes.delta == 3) {
+            terrain->saveMap();
+        }
+        if (mes.delta == 4) {
+            terrain->loadMap();
+        }
+        if (mes.delta == 5) {
+            terrain->generateMap();
+        }
+        messageState = Message::MS_HANDLED;
+	}
     return messageState;
 }
 

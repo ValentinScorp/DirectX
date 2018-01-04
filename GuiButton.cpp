@@ -2,16 +2,21 @@
 
 GuiButton::GuiButton(IDirect3DDevice9* pDevice, D3DXVECTOR2 pos, std::string bitmapFileName, int id)
 {
+    if (bitmapFileName == "") {
+        bitmapFileName = "button_background.png";
+    }
     position = pos;
     this->id = id;
     dimension.x = 32;
     dimension.y = 32;
-    bitmap = new GuiBitmap;
-	bitmap->Init(pDevice, bitmapFileName);
+    bitmap = new GuiBitmap(pDevice, bitmapFileName);
 	bitmap->SetPosition(position);
 
 	D3DXCreateTextureFromFile(pDevice, "button_frame.png", &frameTexture);
 	D3DXCreateSprite(pDevice, &sprite);
+
+	text = new GuiText(pDevice, "");
+    text->SetPosition(position);
 }
 
 GuiButton::~GuiButton()
@@ -29,13 +34,9 @@ void GuiButton::OnMessage(Message mes)
 	}
 }
 
-void GuiButton::Init()
-{
-
-}
-
 void GuiButton::Draw()
 {
+    bitmap->setWidth(dimension.x);
     bitmap->Draw();
 
     sprite->Begin(D3DXSPRITE_ALPHABLEND);
@@ -44,15 +45,22 @@ void GuiButton::Draw()
     if (state == BS_PRESS) {
         degree = 180;
     }
-    D3DXMATRIX rotationMatrix;
-    D3DXVECTOR2 rotation_center(dimension.x / 2, dimension.y / 2);
-    D3DXVECTOR2 frame_position(position.x, position.y);
-    D3DXMatrixTransformation2D(&rotationMatrix, NULL, 0, NULL, &rotation_center, D3DXToRadian(degree), &frame_position);
-    sprite->SetTransform(&rotationMatrix);
-    sprite->Draw(frameTexture, NULL, NULL, NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-    D3DXMatrixRotationZ(&rotationMatrix, 0);
-    sprite->SetTransform(&rotationMatrix);
+
+    sprite->Begin(D3DXSPRITE_ALPHABLEND);
+    D3DXVECTOR2 spriteCentre = D3DXVECTOR2(dimension.x / 2.0f, dimension.y / 2.0f);
+    D3DXMATRIX mat;
+    D3DXVECTOR2 scaling(dimension.x / 32.0f, dimension.y / 32.0f);
+    D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, D3DXToRadian(degree), &position);
+
+    sprite->SetTransform(&mat);
+    sprite->Draw(frameTexture, NULL, NULL, NULL, 0xFFFFFFFF);
     sprite->End();
+
+    D3DXVECTOR2 newPosition = position;
+    newPosition.x += 4 * (dimension.x / 32.0f);
+    newPosition.y += 4 * (dimension.y / 32.0f);
+    text->SetPosition(newPosition);
+    text->Draw();
 }
 
 void GuiButton::Destroy()
@@ -61,8 +69,17 @@ void GuiButton::Destroy()
         delete bitmap;
         bitmap = nullptr;
     }
+    if (text != nullptr){
+        delete text;
+        text = nullptr;
+    }
     if (sprite != nullptr) {
 		sprite->Release();
 		sprite = nullptr;
 	}
+}
+
+void GuiButton::setText(std::string newText)
+{
+    text->setText(newText);
 }

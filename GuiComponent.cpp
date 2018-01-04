@@ -28,6 +28,10 @@ void GuiComponent::SetPosition(D3DXVECTOR2 newPos)
     position = newPos;
 }
 
+void GuiComponent::setWidth(float width) {
+    dimension.x = width;
+}
+
 int GuiComponent::GetId()
 {
     return id;

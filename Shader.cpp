@@ -45,15 +45,15 @@ void Shader::PrepareTexture(std::string name) {
 }
 
 void Shader::Destroy() {
-	if (vertexShader) {
+	if (vertexShader != nullptr) {
 		vertexShader->Release();
 		vertexShader = nullptr;
 	}
-	if (pixelShader) {
+	if (pixelShader != nullptr) {
 		pixelShader->Release();
 		pixelShader = nullptr;
 	}
-	if (compiledShader) {
+	if (compiledShader != nullptr) {
 		compiledShader->Release();
 		compiledShader = nullptr;
 	}

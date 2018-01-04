@@ -52,11 +52,6 @@ private:
 	Camera *camera = nullptr;
 	D3DXMATRIX cameraMatrix;
 
-	unsigned int texBIndex = 0;
-	unsigned int texFIndex = 0;
-	unsigned int texAIndex = 0;
-	unsigned int texArIndex = 0;
-
 	IDirect3DVertexDeclaration9 *vertexDeclaration = 0;
 
 	Shader *vertexShaderMy;

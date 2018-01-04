@@ -8,12 +8,13 @@ class GuiText : public GuiComponent
         std::string text;
     	ID3DXFont*	font = nullptr;
     public:
-        GuiText(std::string text);
+        GuiText(IDirect3DDevice9* pDevice, std::string text);
         virtual ~GuiText();
 
-        void Init(IDirect3DDevice9* pDevice);
         void Draw();
         void Destroy();
+
+        void setText(std::string newText);
 };
 
 #endif // GUITEXT_H

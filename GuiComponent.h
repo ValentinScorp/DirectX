@@ -21,6 +21,7 @@ class GuiComponent
 
         int GetId();
         void SetPosition(D3DXVECTOR2 newPos);
+        void setWidth(float width);
 
         bool IsInBorders(D3DXVECTOR2 point);
 };

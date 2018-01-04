@@ -9,6 +9,7 @@
 #include <list>
 #include <string>
 #include <fstream>
+#include <iostream>
 #include <iterator>
 
 #include <d3d9.h>
@@ -33,9 +34,9 @@
 #include "Terrain.h"
 #include "TerrainPatch.h"
 #include "GuiComponent.h"
+#include "GuiText.h"
 #include "GuiButton.h"
 #include "GuiBitmap.h"
-#include "GuiText.h"
 #include "GuiSystem.h"
 
 #define SCREEN_WIDTH 1024

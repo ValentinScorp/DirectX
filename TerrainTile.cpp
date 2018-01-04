@@ -192,3 +192,4 @@ void TerrainTile::PrintSelf() {
 size_t TerrainTile::GetTextureAlpha() {
 	return textureAlpha;
 }
+

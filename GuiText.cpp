@@ -1,16 +1,8 @@
 #include "Precompiled.h"
 
-GuiText::GuiText(std::string text)
+GuiText::GuiText(IDirect3DDevice9* pDevice, std::string text)
 {
     this->text = text;
-}
-
-GuiText::~GuiText()
-{
-}
-
-void GuiText::Init(IDirect3DDevice9* pDevice)
-{
     D3DXFONT_DESC fontDesc;
 	fontDesc.Height = 24;
 	fontDesc.Width = 0;
@@ -25,6 +17,10 @@ void GuiText::Init(IDirect3DDevice9* pDevice)
 	D3DXCreateFontIndirect(pDevice, &fontDesc, &font);
 }
 
+GuiText::~GuiText()
+{
+}
+
 void GuiText::Draw()
 {
 	RECT R = { (LONG)position.x, (LONG)position.y, (LONG)position.x + 100, (LONG)position.y + 24 };
@@ -37,4 +33,8 @@ void GuiText::Destroy()
 		font->Release();
 		font = NULL;
 	}
+}
+void GuiText::setText(std::string newText)
+{
+    this->text = newText;
 }

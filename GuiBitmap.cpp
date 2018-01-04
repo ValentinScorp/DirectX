@@ -7,36 +7,42 @@
 
 #include "Precompiled.h"
 
-GuiBitmap::GuiBitmap() {
-	position.x = 0;
-	position.y = 0;
-	position.z = 0;
+GuiBitmap::GuiBitmap(IDirect3DDevice9* dev, std::string fname) {
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
-}
+	dimension.x = 32;
+    dimension.y = 32;
 
-GuiBitmap::~GuiBitmap() {
-	if (sprite) {
-		sprite->Release();
-	}
-	if (texture) {
-		texture->Release();
-	}
-}
-
-void GuiBitmap::Init(IDirect3DDevice9* dev, std::string fname) {
 	D3DXCreateTextureFromFile(dev, fname.c_str(), &texture);
 	D3DXCreateSprite(dev, &sprite);
 }
 
-void GuiBitmap::Draw() {
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	RECT rect = {0, 0, 32, 32};
-	sprite->Draw(texture, &rect, NULL, &position, color);
-	sprite->End();
+GuiBitmap::~GuiBitmap() {
+	Destroy();
 }
 
-void GuiBitmap::SetPosition(D3DXVECTOR2 pos) {
-	position.x = pos.x;
-	position.y = pos.y;
-	position.z = 0;
+void GuiBitmap::Draw() {
+
+    float degree = 0;
+
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+    D3DXVECTOR2 spriteCentre = D3DXVECTOR2(dimension.x / 2.0f, dimension.y / 2.0f);
+    D3DXMATRIX mat;
+    D3DXVECTOR2 scaling(1.0f, 1.0f);
+    D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, D3DXToRadian(degree), &position);
+
+    sprite->SetTransform(&mat);
+    RECT rect = {(LONG)0, (LONG)0, (LONG)dimension.x, (LONG)dimension.y};
+    sprite->Draw(texture, &rect, NULL, NULL, color);
+    sprite->End();
+}
+
+void GuiBitmap::Destroy() {
+    if (sprite != nullptr) {
+		sprite->Release();
+		sprite = nullptr;
+	}
+	if (texture != nullptr) {
+		texture->Release();
+		texture = nullptr;
+	}
 }

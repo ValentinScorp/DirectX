@@ -14,6 +14,7 @@ Terrain::~Terrain()
 
 void Terrain::CreateGraphics(TerrainRenderer * tr)
 {
+    terrainRenderer = tr;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			TerrainPatch patch(i, j, patchDimention, tile);
@@ -21,7 +22,6 @@ void Terrain::CreateGraphics(TerrainRenderer * tr)
 			tiles.insert(tiles.end(), ptiles.begin(), ptiles.end());
 		}
 	}
-
 	std::vector <TerrainPoint> tp;
 
 	for (auto t : tiles) {
@@ -31,8 +31,7 @@ void Terrain::CreateGraphics(TerrainRenderer * tr)
 		}
 		t.ClearPoints();
 	}
-
-	tr->Create(tp);
+	terrainRenderer->Create(tp);
 }
 
 D3DXVECTOR3 Terrain::GetTerraneIntersection(RayVector rv)
@@ -67,5 +66,28 @@ void Terrain::SetTilesSurface(D3DXVECTOR3 point) {
 }
 
 void Terrain::SetBrushType(int brushType) {
-    currentBrushType = brushType;
+    if (brushType >=0 && brushType <= 2) {
+        currentBrushType = brushType;
+    }
+}
+
+void Terrain::saveMap()
+{
+    std::ofstream outFile("map.dat", std::ios::out | std::ios::binary);
+    outFile.write((char*)&tiles[0], tiles.size() * sizeof(TerrainTile));
+    outFile.close();
+}
+
+void Terrain::loadMap()
+{
+    terrainRenderer->Destroy();
+    tiles.clear();
+}
+
+void Terrain::generateMap()
+{
+    terrainRenderer->Destroy();
+    tiles.clear();
+
+    CreateGraphics(terrainRenderer);
 }

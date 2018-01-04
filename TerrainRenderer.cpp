@@ -4,20 +4,28 @@ TerrainRenderer::TerrainRenderer(IDirect3DDevice9* dev)
 {
 	dxDevice = dev;
 	srand(time(NULL));
-
-	vertexShaderMy = new Shader();
-	pixelShaderMy = new Shader();
 }
 
 
 TerrainRenderer::~TerrainRenderer()
 {
-	delete vertexShaderMy;
-	delete pixelShaderMy;
+    if (vertexShaderMy != nullptr) {
+        delete vertexShaderMy;
+    }
+    if (pixelShaderMy != nullptr) {
+        delete pixelShaderMy;
+    }
 }
 
 void TerrainRenderer::Create(std::vector<TerrainPoint>& tpoints)
 {
+    if (vertexShaderMy == nullptr) {
+        vertexShaderMy = new Shader();
+    }
+    if (pixelShaderMy == nullptr) {
+        pixelShaderMy = new Shader();
+    }
+
 	std::vector<TerrainVertexData> terrainVertexes;
 	for (auto tp : tpoints) {
 		TerrainVertexData tv;
@@ -40,13 +48,11 @@ void TerrainRenderer::Create(std::vector<TerrainPoint>& tpoints)
 	D3DXCreateTextureFromFile(dxDevice, "alphaCorner.png", &alphaCorner);
 	D3DXCreateTextureFromFile(dxDevice, "alphaCornerNew.png", &alphaCornerNew);
 	D3DXCreateTextureFromFile(dxDevice, "alphaDiag.png", &alphaDiag);
-
 	terrainTextures.push_back(rockTex);
 	terrainTextures.push_back(grassTex);
 	terrainTextures.push_back(sandTex);
 	terrainTextures.push_back(rockTex);
 	terrainTextures.push_back(rockTex);
-
 	HRESULT hr;
 	ID3DXBuffer *pErrors = nullptr;
 	hr = D3DXCreateBuffer(1024, &pErrors);
@@ -69,17 +75,18 @@ void TerrainRenderer::Create(std::vector<TerrainPoint>& tpoints)
 			D3DDECL_END()
 	};
 	dxDevice->CreateVertexDeclaration(decl, &vertexDeclaration);
-
 	vertexShaderMy->CreateVertexShader(dxDevice, "TerrainVertexShader.fx", "RenderSceneVS");
 	vertexShaderMy->PrepareMatrix("g_mWorldViewProjection");
-
-	pixelShaderMy->CreatePixelShader(dxDevice, "TerrainPixelShader.fx", "RenderScenePS");
+    pixelShaderMy->CreatePixelShader(dxDevice, "TerrainPixelShader.fx", "RenderScenePS");
 	pixelShaderMy->PrepareTexture("TexAlphaSampler");
 	pixelShaderMy->PrepareTextureArray("texSamplers");
 }
 
 void TerrainRenderer::Render()
 {
+    if (vertexShaderMy == nullptr || pixelShaderMy == nullptr || terrainTextures.size() == 0) {
+        return;
+    }
 	D3DXMATRIX matTransform;
 	D3DXMatrixIdentity(&matTransform);
 	dxDevice->SetTransform(D3DTS_WORLD, &matTransform);
@@ -123,42 +130,60 @@ void TerrainRenderer::Render()
 
 void TerrainRenderer::Destroy()
 {
-	if (sandTex) {
+	if (sandTex != nullptr) {
 		sandTex->Release();
 		sandTex = nullptr;
 	}
-	if (grassTex) {
+	if (grassTex != nullptr) {
 		grassTex->Release();
 		grassTex = nullptr;
 	}
-	if (rockTex) {
+	if (rockTex != nullptr) {
 		rockTex->Release();
 		rockTex = nullptr;
 	}
-	if (alphaSide) {
+	if (alphaSide != nullptr) {
 		alphaSide->Release();
 		alphaSide = nullptr;
 	}
-	if (alphaCorner) {
+	if (alphaCorner != nullptr) {
 		alphaCorner->Release();
 		alphaCorner = nullptr;
 	}
-	if (alphaFull) {
+	if (alphaCornerNew != nullptr) {
+		alphaCornerNew->Release();
+		alphaCornerNew = nullptr;
+	}
+	if (alphaFull != nullptr) {
 		alphaCorner->Release();
 		alphaCorner = nullptr;
 	}
-	if (alphaDiag) {
+	if (alphaDiag != nullptr) {
 		alphaDiag->Release();
 		alphaDiag = nullptr;
 	}
-
-	if (dxVertexBuffer) {
+	if (dxVertexBuffer != nullptr) {
 		dxVertexBuffer->Release();
-		dxVertexBuffer = NULL;
+		dxVertexBuffer = nullptr;
 	}
-
-	vertexShaderMy->Destroy();
-	pixelShaderMy->Destroy();
+    if (vertexShaderMy != nullptr) {
+        vertexShaderMy->Destroy();
+        delete vertexShaderMy;
+        vertexShaderMy = nullptr;
+    }
+    if (pixelShaderMy != nullptr) {
+        pixelShaderMy->Destroy();
+        delete pixelShaderMy;
+        pixelShaderMy = nullptr;
+    }
+    if (vertexDeclaration != nullptr) {
+        vertexDeclaration->Release();
+        vertexDeclaration = nullptr;
+    }
+    terrainTextures.clear();
+    alphaTextures.clear();
+    numVertexes = 0;
+    triangles.clear();
 }
 
 void TerrainRenderer::SetCamera(Camera * cam)

@@ -4,7 +4,8 @@
 class GuiButton : public GuiComponent
 {
     private:
-        GuiBitmap *bitmap = nullptr;
+        GuiComponent *bitmap = nullptr;
+        GuiText *text = nullptr;
         IDirect3DTexture9 *frameTexture = nullptr;
         ID3DXSprite *sprite = nullptr;
 
@@ -22,9 +23,10 @@ class GuiButton : public GuiComponent
 
         void OnMessage(Message mes);
 
-        virtual void Init();
         virtual void Draw();
         virtual void Destroy();
+
+        void setText(std::string newText);
 };
 
 #endif // GUIBUTTON_H
