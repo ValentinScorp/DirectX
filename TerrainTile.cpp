@@ -32,10 +32,6 @@ TerrainTile::TerrainTile(TerrainPoint point1, TerrainPoint point2, TerrainPoint 
 	triangle2.B.textureCo = point4.textureCo;
 	triangle2.C.textureCo = point3.textureCo;
 
-	textureFront = 0;
-	textureBack = 0;
-	alphaRotation = 0;
-
 	for (size_t i = 0; i < 5; i++) {
 		textureIndexes[i] = 0;
 	}
@@ -67,47 +63,6 @@ std::vector<TerrainPoint>& TerrainTile::GetPoints()
 void TerrainTile::ClearPoints()
 {
 	points.clear();
-}
-
-void TerrainTile::SetTexFront(size_t textureIndex)
-{
-	textureFront = textureIndex;
-}
-
-void TerrainTile::SetTexBack(size_t textureIndex)
-{
-	textureBack = textureIndex;
-}
-
-void TerrainTile::SetAlphaRotaion(int arot)
-{
-	alphaRotation = arot;
-}
-
-size_t TerrainTile::GetTexFront()
-{
-	return textureFront;
-}
-
-size_t TerrainTile::GetTexBack()
-{
-	return textureBack;
-}
-
-size_t TerrainTile::GetTexAlpha()
-{
-	return textureAlpha;
-}
-
-int TerrainTile::GetAlphaRotation()
-{
-	return alphaRotation;
-}
-
-
-void TerrainTile::RotateAlpha(int rotateNum)
-{
-	alphaRotation = rotateNum;
 }
 
 bool TerrainTile::intersectRayTriangle(RayVector ray, Triangle triangle, D3DXVECTOR3 &intersectionVertex)
@@ -171,6 +126,10 @@ bool TerrainTile::intersectRayTriangle(RayVector ray, Triangle triangle, D3DXVEC
 void TerrainTile::SetTexture(size_t index, size_t num) {
 	textureIndexes[num] = index;
 	textureIndexes[0] = index;
+}
+void TerrainTile::SetBaseTexture(size_t index)
+{
+    textureIndexes[0] = index;
 }
 
 size_t TerrainTile::GetTexture(size_t num) {

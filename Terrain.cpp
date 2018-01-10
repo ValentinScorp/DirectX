@@ -17,7 +17,7 @@ void Terrain::CreateGraphics(TerrainRenderer * tr)
     terrainRenderer = tr;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			TerrainPatch patch(i, j, patchDimention, tile);
+			TerrainPatch patch(j, i, patchDimention, tile);
 			std::vector<TerrainTile> ptiles = patch.GetTiles();
 			tiles.insert(tiles.end(), ptiles.begin(), ptiles.end());
 		}
@@ -74,14 +74,49 @@ void Terrain::SetBrushType(int brushType) {
 void Terrain::saveMap()
 {
     std::ofstream outFile("map.dat", std::ios::out | std::ios::binary);
-    outFile.write((char*)&tiles[0], tiles.size() * sizeof(TerrainTile));
+
+    for (TerrainTile &tile : tiles) {
+        outFile << tile.GetTexture(0);
+        outFile << tile.GetTexture(1);
+        outFile << tile.GetTexture(2);
+        outFile << tile.GetTexture(3);
+        outFile << tile.GetTexture(4);
+    }
+
     outFile.close();
 }
 
 void Terrain::loadMap()
 {
-    terrainRenderer->Destroy();
-    tiles.clear();
+    generateMap();
+
+    std::ifstream inFile("map.dat", std::ios::in | std::ios::binary);
+
+    inFile.seekg(0, std::ios::end);
+	long fileSize = inFile.tellg();
+	inFile.seekg(0, std::ios::beg);
+
+	unsigned char *data = new unsigned char[fileSize];
+	inFile.read((char*)data, fileSize);
+	inFile.close();
+
+	unsigned char *data_iterator = data;
+    char textures[5];
+
+    size_t totalPatches = fileSize / 5 / sizeof(char);
+
+    for (size_t i = 0; i < totalPatches; i++) {
+        memcpy(textures, data_iterator, sizeof(char) * 5);
+        tiles[i].SetTexture(textures[1]-'0', 1);
+        tiles[i].SetTexture(textures[2]-'0', 2);
+        tiles[i].SetTexture(textures[3]-'0', 3);
+        tiles[i].SetTexture(textures[4]-'0', 4);
+        tiles[i].SetBaseTexture(textures[0]-'0');
+
+        data_iterator += sizeof(char) * 5;
+    }
+
+    delete data;
 }
 
 void Terrain::generateMap()

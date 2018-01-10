@@ -23,9 +23,8 @@ private:
 	Triangle triangle1;
 	Triangle triangle2;
 
-	size_t textureFront = 0;
-	size_t textureBack = 0;
-	int alphaRotation = 0;
+	size_t textureIndexes[5];
+	size_t textureAlpha = 0;
 
 public:
 
@@ -45,23 +44,15 @@ public:
 	void SetAlphaRotaion(int arot);
 	void PrintSelf();
 
-	size_t GetTexFront();
-	size_t GetTexBack();
-	size_t GetTexAlpha();
-	int GetAlphaRotation();
-
-	void RotateAlpha(int rotateNum);
-
 	void SetTexture(size_t index, size_t num);
-
+	void SetBaseTexture(size_t index);
 	size_t GetTexture(size_t num);
 	size_t GetTextureAlpha();
 
 private:
 	bool intersectRayTriangle(RayVector ray, Triangle triangle, D3DXVECTOR3 &intersectionVertex);
 
-	size_t textureIndexes[5];
-	size_t textureAlpha = 0;
+
 
 };
 
