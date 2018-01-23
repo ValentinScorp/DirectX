@@ -73,6 +73,8 @@
 		<Unit filename="GuiButton.h" />
 		<Unit filename="GuiComponent.cpp" />
 		<Unit filename="GuiComponent.h" />
+		<Unit filename="GuiList.cpp" />
+		<Unit filename="GuiList.h" />
 		<Unit filename="GuiSystem.cpp" />
 		<Unit filename="GuiSystem.h" />
 		<Unit filename="GuiText.cpp" />
@@ -103,6 +105,8 @@
 		<Unit filename="TerrainTile.h" />
 		<Unit filename="UserInput.cpp" />
 		<Unit filename="UserInput.h" />
+		<Unit filename="Utility.cpp" />
+		<Unit filename="Utility.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

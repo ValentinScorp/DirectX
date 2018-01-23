@@ -74,6 +74,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     guiText->SetPosition(D3DXVECTOR2(10, 10));
     guiSystem->AttachComponent(guiText);
 
+    GuiList *guiList = new GuiList(renderer->GetDevice(), D3DXVECTOR2(10, 30), 101);
+    std::vector<std::string> fileNames;
+    GetFilesInDirectory(fileNames, GetCurrentExeDirectory());
+    for (std::string &file : fileNames) {
+        guiList->addItem(file);
+    }
+    guiSystem->AttachComponent(guiList);
+
 	userInput->RegisterListener(scene->GetActiveCamera());
 	userInput->RegisterListener(scene);
 	userInput->RegisterListener(renderer);

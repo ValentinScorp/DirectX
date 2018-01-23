@@ -16,6 +16,7 @@
 #include <d3dx9.h>
 #include <time.h>
 
+#include "Utility.h"
 #include "Clock.h"
 #include "Shader.h"
 #include "MessageManager.h"
@@ -36,6 +37,7 @@
 #include "GuiComponent.h"
 #include "GuiText.h"
 #include "GuiButton.h"
+#include "GuiList.h"
 #include "GuiBitmap.h"
 #include "GuiSystem.h"
 
